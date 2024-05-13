@@ -1,0 +1,65 @@
+-- Crear la tabla heroes
+CREATE TABLE heroes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    bio TEXT NOT NULL,
+    aparicion DATE NOT NULL,
+    casa VARCHAR(20) NOT NULL
+);
+
+-- Crear la tabla peliculas
+CREATE TABLE peliculas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(50) NOT NULL,
+    descripcion TEXT NOT NULL,
+    fecha_lanzamiento DATE NOT NULL
+);
+
+
+-- Crear tabla de unión entre heroes y peliculas
+CREATE TABLE heroes_peliculas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    heroes_id INT NOT NULL,
+    peliculas_id INT NOT NULL,
+    FOREIGN KEY (heroes_id) REFERENCES heroes(id),
+    FOREIGN KEY (peliculas_id) REFERENCES peliculas(id)
+);
+
+-- Crear índices únicos para evitar duplicados en la tabla de unión
+CREATE UNIQUE INDEX idx_heroes_peliculas ON heroes_peliculas (heroes_id, peliculas_id);
+
+-- Crear la tabla casting_pelicula
+CREATE TABLE casting_pelicula (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    personaje VARCHAR(50) NOT NULL,
+    peliculas_id INT NOT NULL,
+    heroes_id INT NOT NULL,
+    FOREIGN KEY (peliculas_id) REFERENCES peliculas(id),
+    FOREIGN KEY (heroes_id) REFERENCES heroes(id)
+);
+
+-- Crear la tabla imagenes
+CREATE TABLE imagenes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descripcion VARCHAR(50) NOT NULL,
+    url VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE img_peliculas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    peliculas_id INT,
+    imagenes_id INT,
+    FOREIGN KEY (peliculas_id) REFERENCES peliculas(id),
+    FOREIGN KEY (imagenes_id) REFERENCES imagenes(id)
+);
+
+CREATE TABLE img_heroes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    heroes_id INT,
+    imagenes_id INT,
+    FOREIGN KEY (heroes_id) REFERENCES heroes(id),
+    FOREIGN KEY (imagenes_id) REFERENCES imagenes(id)
+);
+
+
