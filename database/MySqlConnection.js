@@ -1,6 +1,9 @@
 const { Sequelize } = require('sequelize');
 
-const bdmysql = new Sequelize('peliculas', 'root', '34152264', {
+
+//'db2' . 'root' ,''
+
+const bdmysql = new Sequelize('', '', '', {
   host: 'localhost',
   port: '3306',
   dialect: 'mysql'
